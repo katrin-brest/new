@@ -1,0 +1,65 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 600px;
+  height: 100vh;
+  margin: 0 auto;
+  padding-top: 30px;
+  background-color: rgb(238, 225, 209);
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+
+}
+
+.btn-cont {
+  max-width: 400px;
+  height: 50px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.upper-btn {
+  width: 70px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+}
+
+.count-cont {
+  max-width: 400px;
+  height: 20px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.count {
+  font: 500 16px 'Arial';
+}
+
+.puzzle {
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1f);
+  border: 1px solid black;
+}
+
+.card {
+  border: 1px solid black;
+}
