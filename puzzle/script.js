@@ -61,11 +61,22 @@ const puzzle = document.createElement('div');
 puzzle.className = 'puzzle';
 wrapper.append(puzzle);
 
+let numbers = ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+numbers.sort(() => Math.round((Math.random() * 100) - 50))
+
 for(let i = 0; i < 16; i++) {
   let card = document.createElement('div');
   card.className = 'card';
+  card.textContent = numbers[i];
   puzzle.append(card)
 }
 
+// заполняем матрицу числами
 
+
+// function shuffle (arr) {
+//   return arr.sort(() => {
+//     Math.round((Math.random() * 100) - 50)
+//   })
+// }
 

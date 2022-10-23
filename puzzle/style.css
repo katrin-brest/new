@@ -62,4 +62,9 @@ h1 {
 
 .card {
   border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: 600 16px 'Arial';
+  color: brown;
 }
