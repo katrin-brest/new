@@ -17,6 +17,7 @@ for(let i = 0; i < 4; i++) {
   switch (i) {
     case 0: 
     btn.textContent = 'Shuffle';
+    btn.classList.add('shuffle')
     break;
     case 1: 
     btn.textContent = 'Stop';
@@ -118,5 +119,18 @@ function countMoves () {
   counter.textContent = ++current
 }
 
+// делаем шаффл и рестарт 
+const shuffleBtn = document.querySelector('.shuffle')
+
+shuffleBtn.addEventListener('click', restart)
+
+function restart() {
+  numbers.sort(() => Math.round((Math.random() * 100) - 50));
+  let cards = document.querySelectorAll('.card');
+  for(let i = 0; i < 16; i++) {
+    cards[i].textContent = numbers[i]
+  }
+  counter.textContent = 0
+}
 
 
