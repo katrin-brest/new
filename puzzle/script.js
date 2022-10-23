@@ -45,6 +45,7 @@ for(let i = 0; i < 4; i++) {
     break;
     case 1: 
     div.textContent = 0;
+    div.classList.add('counter')
     break;
     case 2: 
     div.textContent = 'Time:';
@@ -62,7 +63,8 @@ puzzle.className = 'puzzle';
 wrapper.append(puzzle);
 
 let numbers = ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-numbers.sort(() => Math.round((Math.random() * 100) - 50))
+numbers.sort(() => Math.round((Math.random() * 100) - 50));
+
 
 for(let i = 0; i < 16; i++) {
   let card = document.createElement('div');
@@ -70,13 +72,51 @@ for(let i = 0; i < 16; i++) {
   card.textContent = numbers[i];
   puzzle.append(card)
 }
+// вешаем слушатель на паззл
 
-// заполняем матрицу числами
+puzzle.addEventListener('click', moveCard);
+
+const counter = document.querySelector('.counter')
+
+// передвигаем пустые ячейки и считаем движения
+
+function moveCard (event) {
+  let target = event.target;
+  let current = target.textContent;
+  let cards = Array.from(document.querySelectorAll('.card')) ;
+
+  let i = cards.indexOf(target);
+  console.log(i)
+  if(target.nextSibling && target.nextSibling.textContent === '' && ((i+1) % 4 !== 0) ) {
+    target.nextSibling.textContent = current;
+    target.textContent = '';
+    countMoves ()
+  }
+  
+  if(target.previousSibling && target.previousSibling.textContent === '' && ((i % 4 !== 0)))  {
+    target.previousSibling.textContent = current;
+    target.textContent = '';
+    countMoves ()
+  }
+
+  if(cards[i+4] && cards[i+4].textContent === '')  {
+    cards[i+4].textContent = current;
+    target.textContent = '';
+    countMoves ()
+  }
+  if(cards[i-4] && cards[i-4].textContent === '')  {
+    cards[i-4].textContent = current;
+    target.textContent = '';
+    countMoves ()
+  }
+ }
+
+//  делаем счетчик движений
+
+function countMoves () {
+  let current = +counter.textContent;
+  counter.textContent = ++current
+}
 
 
-// function shuffle (arr) {
-//   return arr.sort(() => {
-//     Math.round((Math.random() * 100) - 50)
-//   })
-// }
 
