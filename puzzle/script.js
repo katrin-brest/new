@@ -11,6 +11,8 @@ const btnCont = document.createElement('div');
 btnCont.className = 'btn-cont';
 wrapper.append(btnCont);
 
+let stopBtn;
+
 for(let i = 0; i < 4; i++) {
   let  btn = document.createElement('button');
   btn.className = 'upper-btn';
@@ -20,6 +22,7 @@ for(let i = 0; i < 4; i++) {
     btn.classList.add('shuffle')
     break;
     case 1: 
+    stopBtn = btn;
     btn.textContent = 'Stop';
     break;
     case 2: 
@@ -51,8 +54,9 @@ for(let i = 0; i < 4; i++) {
     case 2: 
     div.textContent = 'Time:';
     break;
-    case 3: 
-    div.textContent = '00:00';
+    case 3:
+    div.classList.add('timer');
+    div.textContent = '0:00';
     break;
   }
 
@@ -130,7 +134,33 @@ function restart() {
   for(let i = 0; i < 16; i++) {
     cards[i].textContent = numbers[i]
   }
-  counter.textContent = 0
+  counter.textContent = 0;
+  start = Date.now()
 }
+// делаем таймер
 
+  const time = document.querySelector('.timer')
+  let start; 
+  window.addEventListener('load', () => {
+  start = Date.now()
+ })
+  let timer = setInterval(() => {
+    let now = Date.now();
+    let seconds = Math.trunc((now - start) / 1000);
+    let min = Math.trunc(seconds / 60);
+    let sec = seconds - min * 60;
+    if(sec>9) {
+      time.textContent = `${min}:${sec} `
+    } else {
+      time.textContent = `${min}:0${sec} `
+    }
+    
+}, 1000)
+
+// остановка таймера
+// stopBtn.addEventListener('click', stopTimer);
+
+// function stopTimer() {
+//   clearInterval(timer)
+// }
 
