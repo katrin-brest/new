@@ -91,30 +91,46 @@ function moveCard (event) {
   let cards = Array.from(document.querySelectorAll('.card')) ;
 
   let i = cards.indexOf(target);
-  console.log(i)
+  
   if(target.nextSibling && target.nextSibling.textContent === '' && ((i+1) % 4 !== 0) ) {
-    target.nextSibling.textContent = current;
-    target.textContent = '';
-    countMoves ()
+    target.classList.add('right'); // добавляем анимацию
+    setTimeout(() => {
+      target.nextSibling.textContent = current;
+      target.textContent = '';
+      target.classList.remove('right') // убираем анимацию
+    }, 1000)
+    countMoves () // считаем движения
   }
   
   if(target.previousSibling && target.previousSibling.textContent === '' && ((i % 4 !== 0)))  {
-    target.previousSibling.textContent = current;
-    target.textContent = '';
+    target.classList.add('left');
+    setTimeout(()=>{
+      target.previousSibling.textContent = current;
+      target.textContent = '';
+      target.classList.remove('left')
+    }, 1000)
     countMoves ()
   }
 
   if(cards[i+4] && cards[i+4].textContent === '')  {
-    cards[i+4].textContent = current;
-    target.textContent = '';
+    target.classList.add('down');
+    setTimeout(() => {
+      cards[i+4].textContent = current;
+      target.textContent = '';
+      target.classList.remove('down')
+    }, 1000)
     countMoves ()
   }
+
   if(cards[i-4] && cards[i-4].textContent === '')  {
-    cards[i-4].textContent = current;
-    target.textContent = '';
+    target.classList.add('up');
+    setTimeout(()=> {
+      cards[i-4].textContent = current;
+      target.textContent = '';
+      target.classList.remove('up')
+    }, 1000)
     countMoves ()
-  }
- }
+  }}
 
 //  делаем счетчик движений
 
