@@ -129,33 +129,41 @@ const shuffleBtn = document.querySelector('.shuffle')
 shuffleBtn.addEventListener('click', restart)
 
 function restart() {
+  // перемешиваем карточки
   numbers.sort(() => Math.round((Math.random() * 100) - 50));
   let cards = document.querySelectorAll('.card');
   for(let i = 0; i < 16; i++) {
     cards[i].textContent = numbers[i]
   }
   counter.textContent = 0;
-  start = Date.now()
+  // перезапускаем таймер
+  start = 0;
+  now = 0;
 }
 // делаем таймер
 
   const time = document.querySelector('.timer')
   let start; 
+  let now = 1;
   window.addEventListener('load', () => {
-  start = Date.now()
+  start = 0;
  })
-  let timer = setInterval(() => {
-    let now = Date.now();
-    let seconds = Math.trunc((now - start) / 1000);
-    let min = Math.trunc(seconds / 60);
-    let sec = seconds - min * 60;
-    if(sec>9) {
-      time.textContent = `${min}:${sec} `
-    } else {
-      time.textContent = `${min}:0${sec} `
-    }
-    
+
+let timer = setInterval(() => {
+  let seconds = now - start;
+  let min = Math.trunc(seconds / 60);
+  let sec = seconds%60;
+  if(sec>9) {
+    time.textContent = `${min}:${sec} `
+  } else {
+    time.textContent = `${min}:0${sec} `
+  }
+  now = now + 1;
+  
 }, 1000)
+
+
+
 
 // остановка таймера
 // stopBtn.addEventListener('click', stopTimer);
