@@ -11,7 +11,8 @@ const btnCont = document.createElement('div');
 btnCont.className = 'btn-cont';
 wrapper.append(btnCont);
 
-let stopBtn;
+let soundBtn;  // для звука
+let sound = true  // для звука
 
 for(let i = 0; i < 4; i++) {
   let  btn = document.createElement('button');
@@ -22,8 +23,8 @@ for(let i = 0; i < 4; i++) {
     btn.classList.add('shuffle')
     break;
     case 1: 
-    stopBtn = btn;
-    btn.textContent = 'Stop';
+    soundBtn = btn;
+    btn.textContent = 'Sound on';
     break;
     case 2: 
     btn.textContent = 'Save';
@@ -100,6 +101,7 @@ function moveCard (event) {
       target.classList.remove('right') // убираем анимацию
     }, 1000)
     countMoves () // считаем движения
+    audio.play() // проигрываем звук
   }
   
   if(target.previousSibling && target.previousSibling.textContent === '' && ((i % 4 !== 0)))  {
@@ -110,6 +112,7 @@ function moveCard (event) {
       target.classList.remove('left')
     }, 1000)
     countMoves ()
+    audio.play()
   }
 
   if(cards[i+4] && cards[i+4].textContent === '')  {
@@ -120,6 +123,7 @@ function moveCard (event) {
       target.classList.remove('down')
     }, 1000)
     countMoves ()
+    audio.play()
   }
 
   if(cards[i-4] && cards[i-4].textContent === '')  {
@@ -130,6 +134,7 @@ function moveCard (event) {
       target.classList.remove('up')
     }, 1000)
     countMoves ()
+    audio.play()
   }}
 
 //  делаем счетчик движений
@@ -179,12 +184,18 @@ let timer = setInterval(() => {
 }, 1000)
 
 
+// делаем звук
 
+const audio = new Audio('move.mp3')
+//  делаем кнопку для звука
 
-// остановка таймера
-// stopBtn.addEventListener('click', stopTimer);
-
-// function stopTimer() {
-//   clearInterval(timer)
-// }
-
+soundBtn.addEventListener('click', () => {
+  if(sound) {
+    soundBtn.textContent = 'Sound off'
+    audio.muted = true;
+    } else {
+    soundBtn.textContent = 'Sound on'
+    audio.muted = false;
+  }
+   sound = !sound
+})
