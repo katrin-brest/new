@@ -69,7 +69,44 @@ puzzle.className = 'puzzle';
 wrapper.append(puzzle);
 
 let numbers = ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-numbers.sort(() => Math.round((Math.random() * 100) - 50));
+
+function control (arr) {
+  arr.sort(() => Math.round((Math.random() * 100) - 50));
+
+  // определяем решаемость
+  let result = 0;
+  for (let i = 0; i < arr.length - 1; i++) {
+    let count = 0; 
+    for(let j = i + 1; j < arr.length; j++ ) {
+      if((arr[i] > arr[j]) && (arr[j] !== '')) {
+        count++
+      }
+    }
+    result += count;
+  }
+   let row // определяем номер ряда пустой клетки
+  switch (arr.indexOf('')) {
+    case 0: case 1: case 2: case 3: 
+    row = 1;
+    break;
+    case 4: case 5: case 6: case 7: 
+    row = 2;
+    break;
+    case 8: case 9: case 10: case 11: 
+    row = 3;
+    break;
+    default: 
+    row = 4;
+  }
+   if(((result + row) % 2) === 0) {
+    numbers = arr;
+   } else {
+    control (arr)
+  }
+}
+
+control(numbers);
+
 
 
 for(let i = 0; i < 16; i++) {
@@ -147,14 +184,14 @@ function countMoves () {
 // делаем шаффл и рестарт 
 const shuffleBtn = document.querySelector('.shuffle')
 
-shuffleBtn.addEventListener('click', restart)
+shuffleBtn.addEventListener('click', () => restart(numbers))
 
-function restart() {
+function restart(array) {
   // перемешиваем карточки
-  numbers.sort(() => Math.round((Math.random() * 100) - 50));
+ control (array);
   let cards = document.querySelectorAll('.card');
   for(let i = 0; i < 16; i++) {
-    cards[i].textContent = numbers[i]
+    cards[i].textContent = array[i]
   }
   counter.textContent = 0;
   // перезапускаем таймер
@@ -199,3 +236,4 @@ soundBtn.addEventListener('click', () => {
   }
    sound = !sound
 })
+
