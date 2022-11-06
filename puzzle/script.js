@@ -136,7 +136,7 @@ function moveCard (event) {
       target.nextSibling.textContent = current;
       target.textContent = '';
       target.classList.remove('right') // убираем анимацию
-    }, 1000)
+    }, 500)
     countMoves () // считаем движения
     audio.play() // проигрываем звук
   }
@@ -147,7 +147,7 @@ function moveCard (event) {
       target.previousSibling.textContent = current;
       target.textContent = '';
       target.classList.remove('left')
-    }, 1000)
+    }, 500)
     countMoves ()
     audio.play()
   }
@@ -158,7 +158,7 @@ function moveCard (event) {
       cards[i+4].textContent = current;
       target.textContent = '';
       target.classList.remove('down')
-    }, 1000)
+    }, 500)
     countMoves ()
     audio.play()
   }
@@ -169,7 +169,7 @@ function moveCard (event) {
       cards[i-4].textContent = current;
       target.textContent = '';
       target.classList.remove('up')
-    }, 1000)
+    }, 500)
     countMoves ()
     audio.play()
   }}

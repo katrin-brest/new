@@ -38,6 +38,9 @@ h1 {
   border: none;
   border-radius: 5px;
 }
+.upper-btn:hover {
+  cursor: pointer;
+}
 
 .count-cont {
   max-width: 400px;
@@ -78,24 +81,24 @@ h1 {
 
 .right {
   transform: translateX(100%);
-  transition: transform 1s;
+  transition: transform 0.5s;
   border: 2px solid brown;
 }
 
 .left {
   transform: translateX(-100%);
-  transition: transform 1s;
+  transition: transform 0.5s;
   border: 2px solid brown;
 }
 
 .up {
   transform: translateY(-100%);
-  transition: transform 1s;
+  transition: transform 0.5s;
   border: 2px solid brown;
 }
 .down {
   transform: translateY(100%);
-  transition: transform 1s;
+  transition: transform 0.5s;
   border: 2px solid brown;
 }
 
