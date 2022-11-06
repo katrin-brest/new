@@ -28,6 +28,7 @@ for(let i = 0; i < 4; i++) {
     break;
     case 2: 
     btn.textContent = 'Save';
+    btn.classList.add('save')
     break;
     case 3: 
     btn.textContent = 'Results';
@@ -107,12 +108,44 @@ function control (arr) {
 
 control(numbers);
 
+// запоминаем игру
+const save = document.querySelector('.save');
 
+save.addEventListener('click', saveGame)
+
+// сохраняем в локалсторэдж
+
+
+function saveGame () {
+  localStorage.setItem('moves', counter.textContent);
+  localStorage.setItem('time', time.textContent);
+  localStorage.setItem('now', now);
+
+  let savedCardArr = [];
+  document.querySelectorAll('.card').forEach(el => savedCardArr.push(el.textContent))
+  localStorage.setItem('numbers', savedCardArr.join())
+
+  }
+// достаем из локалстрэдж
+
+document.addEventListener('DOMContentLoaded', () => {
+  if(localStorage.moves) {
+    counter.textContent = localStorage.getItem('moves');
+    time.textContent = localStorage.getItem('time');
+    now = +localStorage.getItem('now');
+    }
+})
 
 for(let i = 0; i < 16; i++) {
   let card = document.createElement('div');
   card.className = 'card';
-  card.textContent = numbers[i];
+  let savedNumbers = localStorage.getItem('numbers').split(',')
+  if(savedNumbers) {
+    card.textContent = savedNumbers[i];
+  } else {
+     card.textContent = numbers[i];
+  }
+ 
   puzzle.append(card)
 }
 // вешаем слушатель на паззл
@@ -236,4 +269,10 @@ soundBtn.addEventListener('click', () => {
   }
    sound = !sound
 })
+
+
+// удаляем из локалстрэдж
+// .....
+
+
 
