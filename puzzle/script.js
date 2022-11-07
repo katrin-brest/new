@@ -11,6 +11,10 @@ const btnCont = document.createElement('div');
 btnCont.className = 'btn-cont';
 wrapper.append(btnCont);
 
+const winner = document.createElement('div');
+winner.className = 'win-div'
+
+
 let soundBtn;  // для звука
 let sound = true  // для звука
 
@@ -159,8 +163,8 @@ const counter = document.querySelector('.counter')
 function moveCard (event) {
   let target = event.target;
   let current = target.textContent;
-  let cards = Array.from(document.querySelectorAll('.card')) ;
-
+  let cards = Array.from(document.querySelectorAll('.card'));
+   
   let i = cards.indexOf(target);
   
   if(target.nextSibling && target.nextSibling.textContent === '' && ((i+1) % 4 !== 0) ) {
@@ -169,6 +173,7 @@ function moveCard (event) {
       target.nextSibling.textContent = current;
       target.textContent = '';
       target.classList.remove('right') // убираем анимацию
+      ifWin() // проверяем на выигрыш
     }, 500)
     countMoves () // считаем движения
     audio.play() // проигрываем звук
@@ -179,7 +184,9 @@ function moveCard (event) {
     setTimeout(()=>{
       target.previousSibling.textContent = current;
       target.textContent = '';
-      target.classList.remove('left')
+      target.classList.remove('left');
+      ifWin()
+
     }, 500)
     countMoves ()
     audio.play()
@@ -191,6 +198,7 @@ function moveCard (event) {
       cards[i+4].textContent = current;
       target.textContent = '';
       target.classList.remove('down')
+      ifWin()
     }, 500)
     countMoves ()
     audio.play()
@@ -201,11 +209,28 @@ function moveCard (event) {
     setTimeout(()=> {
       cards[i-4].textContent = current;
       target.textContent = '';
-      target.classList.remove('up')
+      target.classList.remove('up');
+      ifWin()
     }, 500)
     countMoves ()
     audio.play()
-  }}
+  }
+    // функция для проверки на выигрыш
+    function ifWin() {
+    let win = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]
+    let count = 0;
+    for(let i = 0; i < cards.length; i++) {
+      console.log(+cards[i].textContent)
+      if(+cards[i].textContent === win[i]) {
+        count++
+      }
+      if (count === 16) {
+        winner.textContent = `Hooray! You solved the puzzle in ${time.textContent} and ${counter.textContent} moves!`
+        wrapper.append(winner)
+      }
+    }
+  }
+}
 
 //  делаем счетчик движений
 
@@ -272,7 +297,10 @@ soundBtn.addEventListener('click', () => {
 
 
 // удаляем из локалстрэдж
-// .....
+// ..... to do
+
+
+// top 10
 
 
 
