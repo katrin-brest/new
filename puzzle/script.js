@@ -262,6 +262,9 @@ function restart(array) {
   // перезапускаем таймер
   start = 0;
   now = 0;
+
+  // удаляем  win надпись
+  winner.remove()
 }
 // делаем таймер
 
