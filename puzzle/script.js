@@ -174,7 +174,9 @@ function moveCard (event) {
       target.textContent = '';
       target.classList.remove('right') // убираем анимацию
       ifWin() // проверяем на выигрыш
+      puzzle.addEventListener('click', moveCard);
     }, 500)
+    puzzle.removeEventListener('click', moveCard)    // убираем слушатель кликов
     countMoves () // считаем движения
     audio.play() // проигрываем звук
   }
@@ -185,9 +187,10 @@ function moveCard (event) {
       target.previousSibling.textContent = current;
       target.textContent = '';
       target.classList.remove('left');
-      ifWin()
-
-    }, 500)
+      ifWin();
+      puzzle.addEventListener('click', moveCard);
+    }, 500);
+    puzzle.removeEventListener('click', moveCard)
     countMoves ()
     audio.play()
   }
@@ -198,8 +201,10 @@ function moveCard (event) {
       cards[i+4].textContent = current;
       target.textContent = '';
       target.classList.remove('down')
-      ifWin()
+      ifWin();
+      puzzle.addEventListener('click', moveCard);
     }, 500)
+    puzzle.removeEventListener('click', moveCard)
     countMoves ()
     audio.play()
   }
@@ -210,9 +215,11 @@ function moveCard (event) {
       cards[i-4].textContent = current;
       target.textContent = '';
       target.classList.remove('up');
-      ifWin()
-    }, 500)
-    countMoves ()
+      ifWin();
+      puzzle.addEventListener('click', moveCard);
+    }, 500);
+    puzzle.removeEventListener('click', moveCard);
+    countMoves();
     audio.play()
   }
     // функция для проверки на выигрыш
