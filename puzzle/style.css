@@ -108,3 +108,7 @@ h1 {
   text-align: center;
   font: 500 16px 'Arial';
 }
+
+.win-list {
+  height: 100px;
+}

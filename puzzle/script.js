@@ -35,7 +35,8 @@ for(let i = 0; i < 4; i++) {
     btn.classList.add('save')
     break;
     case 3: 
-    btn.textContent = 'Results';
+    btn.textContent = 'Clear';
+    btn.classList.add('clear')
     break;
   }
 
@@ -140,10 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 })
 
+
+let savedNumbers = localStorage.getItem('numbers') || null
+savedNumbers ? savedNumbers = savedNumbers.split(',') : savedNumbers = null
+
 for(let i = 0; i < 16; i++) {
   let card = document.createElement('div');
   card.className = 'card';
-  let savedNumbers = localStorage.getItem('numbers').split(',')
   if(savedNumbers) {
     card.textContent = savedNumbers[i];
   } else {
@@ -156,7 +160,9 @@ for(let i = 0; i < 16; i++) {
 
 puzzle.addEventListener('click', moveCard);
 
-const counter = document.querySelector('.counter')
+const counter = document.querySelector('.counter');
+
+
 
 // передвигаем пустые ячейки и считаем движения
 
@@ -222,22 +228,49 @@ function moveCard (event) {
     countMoves();
     audio.play()
   }
+    
     // функция для проверки на выигрыш
     function ifWin() {
     let win = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]
     let count = 0;
+    
+  
     for(let i = 0; i < cards.length; i++) {
       console.log(+cards[i].textContent)
       if(+cards[i].textContent === win[i]) {
         count++
       }
       if (count === 16) {
-        winner.textContent = `Hooray! You solved the puzzle in ${time.textContent} and ${counter.textContent} moves!`
-        wrapper.append(winner)
-      }
-    }
+        winner.textContent = `Hooray! You solved the puzzle in ${time.textContent} and ${counter.textContent} moves!`;
+        wrapper.append(winner); // добавили поздравления
+
+        // проверяем индекс в локалсторэдж
+        if(localStorage.getItem('index')) {
+          currentIndex = +localStorage.getItem('index');
+          localStorage.setItem('index', ++currentIndex)
+        } else {
+          localStorage.setItem('index', '0')
+        }
+
+        let obj = {
+          time: time.textContent,
+          count: counter.textContent
+        }
+        localStorage.setItem(localStorage.getItem('index'), JSON.stringify(obj));
+        console.log(JSON.stringify(obj))
+       }
+     }
+     
+     
   }
 }
+
+
+
+ 
+
+
+
 
 //  делаем счетчик движений
 
@@ -308,9 +341,58 @@ soundBtn.addEventListener('click', () => {
 
 // удаляем из локалстрэдж
 // ..... to do
-
+// localStorage.clear()
 
 // top 10
+
+const winList = document.createElement('div');
+winList.className = 'win-list';
+winList.textContent = 'Top 10'
+wrapper.append(winList)
+
+// проверяем localStorage на наличие winKey и запихиваем объекты в массив
+let arr = []
+for(let i = 0; i < localStorage.length; i++) {
+  let key = localStorage.key(i);
+  
+  if(Number.isInteger(+key)) {
+    let obj = JSON.parse(localStorage.getItem(key));
+    arr.push(obj)
+  }
+}
+// сортируем массив по времени 
+arr.sort((a,b) => {
+  let indexA = a['time'].indexOf(':');
+  let minutesA = +a['time'].slice(0, indexA);
+  let secondsA = +a['time'].slice(indexA+1)
+  let timeA = minutesA * 60 + secondsA;
+
+  let indexB = b['time'].indexOf(':');
+  let minutesB = +b['time'].slice(0, indexB);
+  let secondsB = +b['time'].slice(indexB+1)
+  let timeB = minutesB * 60 + secondsB;
+  if(timeA !== timeB) {
+    return timeA - timeB
+  } else {
+    return a['count'] - b['count']
+  }
+})
+// добавляем отсортированные элементы на страницу
+for (el of arr) {
+  let winRow = document.createElement('p');
+  winRow.classList.add('win-row');
+  winRow.textContent = `Time: ${el['time']}. Moves: ${el['count']}.`
+  winList.append(winRow)
+}
+let clear = document.querySelector('.clear');
+clear.addEventListener('click', removeSavings)
+
+function removeSavings() {
+  localStorage.removeItem('time')
+localStorage.removeItem('moves')
+localStorage.removeItem('numbers')
+localStorage.removeItem('now')
+}
 
 
 
