@@ -181,7 +181,7 @@ function moveCard (event) {
       target.classList.remove('right') // убираем анимацию
       ifWin() // проверяем на выигрыш
       puzzle.addEventListener('click', moveCard);
-    }, 500)
+    }, 400)
     puzzle.removeEventListener('click', moveCard)    // убираем слушатель кликов
     countMoves () // считаем движения
     audio.play() // проигрываем звук
@@ -195,7 +195,7 @@ function moveCard (event) {
       target.classList.remove('left');
       ifWin();
       puzzle.addEventListener('click', moveCard);
-    }, 500);
+    }, 400);
     puzzle.removeEventListener('click', moveCard)
     countMoves ()
     audio.play()
@@ -209,7 +209,7 @@ function moveCard (event) {
       target.classList.remove('down')
       ifWin();
       puzzle.addEventListener('click', moveCard);
-    }, 500)
+    }, 400)
     puzzle.removeEventListener('click', moveCard)
     countMoves ()
     audio.play()
@@ -223,7 +223,7 @@ function moveCard (event) {
       target.classList.remove('up');
       ifWin();
       puzzle.addEventListener('click', moveCard);
-    }, 500);
+    }, 400);
     puzzle.removeEventListener('click', moveCard);
     countMoves();
     audio.play()
