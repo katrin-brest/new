@@ -233,8 +233,7 @@ function moveCard (event) {
     function ifWin() {
     let win = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]
     let count = 0;
-    
-  
+      
     for(let i = 0; i < cards.length; i++) {
       console.log(+cards[i].textContent)
       if(+cards[i].textContent === win[i]) {
@@ -242,7 +241,7 @@ function moveCard (event) {
       }
       if (count === 16) {
         winner.textContent = `Hooray! You solved the puzzle in ${time.textContent} and ${counter.textContent} moves!`;
-        wrapper.append(winner); // добавили поздравления
+        puzzle.after(winner); // добавили поздравления
 
         // проверяем индекс в локалсторэдж
         if(localStorage.getItem('index')) {
@@ -260,17 +259,8 @@ function moveCard (event) {
         console.log(JSON.stringify(obj))
        }
      }
-     
-     
   }
 }
-
-
-
- 
-
-
-
 
 //  делаем счетчик движений
 
@@ -297,7 +287,10 @@ function restart(array) {
   now = 0;
 
   // удаляем  win надпись
-  winner.remove()
+  winner.remove();
+  puzzle.nextSibling.remove()
+   // обновляем топ-10
+  updateTop()
 }
 // делаем таймер
 
@@ -338,13 +331,12 @@ soundBtn.addEventListener('click', () => {
    sound = !sound
 })
 
-
-// удаляем из локалстрэдж
-// ..... to do
-// localStorage.clear()
-
 // top 10
 
+// функция для обновления топ-10
+
+function updateTop () {
+ 
 const winList = document.createElement('div');
 winList.className = 'win-list';
 winList.textContent = 'Top 10'
@@ -378,12 +370,18 @@ arr.sort((a,b) => {
   }
 })
 // добавляем отсортированные элементы на страницу
-for (el of arr) {
+for (let i = 0; i < 10; i++) {
   let winRow = document.createElement('p');
   winRow.classList.add('win-row');
-  winRow.textContent = `Time: ${el['time']}. Moves: ${el['count']}.`
+  winRow.textContent = `${i+1}.  Time: ${arr[i]['time']}. Moves: ${arr[i]['count']}.`
   winList.append(winRow)
 }
+}
+
+updateTop()
+
+  // убираем сохраненную игру из локалсторэдж
+  
 let clear = document.querySelector('.clear');
 clear.addEventListener('click', removeSavings)
 
