@@ -235,7 +235,6 @@ function moveCard (event) {
     let count = 0;
       
     for(let i = 0; i < cards.length; i++) {
-      console.log(+cards[i].textContent)
       if(+cards[i].textContent === win[i]) {
         count++
       }
@@ -371,8 +370,9 @@ arr.sort((a,b) => {
 })
 // добавляем отсортированные элементы на страницу
 for (let i = 0; i < 10; i++) {
-  let winRow = document.createElement('p');
+   let winRow = document.createElement('p');
   winRow.classList.add('win-row');
+  console.log(arr[i])
   winRow.textContent = `${i+1}.  Time: ${arr[i]['time']}. Moves: ${arr[i]['count']}.`
   winList.append(winRow)
 }
@@ -386,7 +386,8 @@ let clear = document.querySelector('.clear');
 clear.addEventListener('click', removeSavings)
 
 function removeSavings() {
-  localStorage.removeItem('time')
+  console.log('clearing///')
+localStorage.removeItem('time')
 localStorage.removeItem('moves')
 localStorage.removeItem('numbers')
 localStorage.removeItem('now')
