@@ -369,11 +369,11 @@ arr.sort((a,b) => {
   }
 })
 // добавляем отсортированные элементы на страницу
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 10 && i < arr.length; i++) {
    let winRow = document.createElement('p');
   winRow.classList.add('win-row');
   console.log(arr[i])
-  winRow.textContent = `${i+1}.  Time: ${arr[i]['time']}. Moves: ${arr[i]['count']}.`
+  winRow.textContent = `${i+1}.  Time: ${arr[i].time}. Moves: ${arr[i].count}.`
   winList.append(winRow)
 }
 }
