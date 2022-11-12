@@ -5,7 +5,8 @@
 }
 
 body {
-  background-color: rgb(238, 225, 209);
+  background-color: #e2d9c7;
+  font-family: 'Kaushan Script', cursive;
 }
 
 .wrapper {
@@ -19,27 +20,35 @@ body {
 h1 {
   width: 100%;
   text-align: center;
+  letter-spacing: 2px;
+  font-size: 36px;
 
 }
 
 .btn-cont {
-  max-width: 400px;
-  height: 50px;
+  max-width: 330px;
   margin: 20px auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 30px);
+  row-gap: 15px;
+  column-gap: 20%;
+  }
 
 .upper-btn {
-  width: 70px;
-  height: 30px;
-  border: none;
+  width: 100%;
   border-radius: 5px;
-}
+  background-color: inherit;
+  border: 1px solid rgb(129, 33, 33);
+  box-shadow: 3px 3px 3px rgb(177, 145, 145);
+  font: 400 14px 'Arial', sans-serif;
+  letter-spacing: 1px;
+  }
+
 .upper-btn:hover {
   cursor: pointer;
+  transform: scale(110%);
+  transition: transform 0.4s;
 }
 
 .count-cont {
@@ -51,29 +60,33 @@ h1 {
   justify-content: center;
   align-items: center;
   gap: 10px;
-}
+ }
 
 .count {
-  font: 500 16px 'Arial';
+  font: 400 16px 'Kaushan Script', cursive;;
 }
 
 .puzzle {
-  width: 320px;
-  height: 320px;
+  width: 330px;
+  height: 330px;
   margin: 0 auto;
   margin-bottom: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1f);
+  gap: 10px;
   border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .card {
   border: 1px solid black;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font: 600 16px 'Arial';
+  font: 600 24px 'Kaushan Script', cursive;
   color: brown;
   cursor: pointer;
 }
@@ -81,26 +94,30 @@ h1 {
 /* анимация для передвижения фишки */
 
 .right {
-  transform: translateX(100%);
+  transform: translateX(calc(100% + 10px));
   transition: transform 0.4s;
-  border: 2px solid brown;
+  /* border: 2px solid black; */
 }
 
 .left {
-  transform: translateX(-100%);
+  transform: translateX(calc(-100% - 10px));
   transition: transform 0.4s;
-  border: 2px solid brown;
+  /* border: 2px solid black; */
 }
 
 .up {
-  transform: translateY(-100%);
+  transform: translateY(calc(-100% - 10px));
   transition: transform 0.4s;
-  border: 2px solid brown;
+  /* border: 2px solid black; */
 }
 .down {
-  transform: translateY(100%);
+  transform: translateY(calc(100% + 10px));
   transition: transform 0.4s;
-  border: 2px solid brown;
+  /* border: 2px solid black; */
+}
+
+.empty {
+  border: none;
 }
 
 .win-div {
@@ -109,20 +126,30 @@ h1 {
   left: 25%;
   width: 50%;
   text-align: center;
-  font: 800 28px 'Arial';
-  background-color: white;
+  font: 800 26px 'Kaushan Script', cursive;
+  letter-spacing: 2px;
+  background-color: rgb(216, 216, 216);
+  box-shadow: 4px 4px 4px 4px rgb(177, 145, 145);;
   border-radius: 25px;
   padding: 10px;
 }
 
 .win-list {
-  width: 66%;
+  max-width: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   text-align: center;
-  font: 500 16px 'Arial';
+  font: 400 16px 'Kaushan Script', cursive;
+  color: brown;
 }
 
 .win-row {
-  margin: 10px 0;
-  text-align: center;
-}
+  width: 200px;
+  margin: 7px 0;
+  text-align: left;
+  font: 400 14px 'Arial', sans-serif;
+  letter-spacing: 1px;
+  color: black;
+ }

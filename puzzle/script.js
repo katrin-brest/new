@@ -4,7 +4,7 @@ wrapper.className = 'wrapper';
 document.body.append(wrapper);
 
 const h1 = document.createElement('h1')
-h1.textContent = 'RSS Gem Puzzle'
+h1.textContent = 'Gem Puzzle'
 wrapper.append(h1)
 
 const btnCont = document.createElement('div');
@@ -153,6 +153,9 @@ for(let i = 0; i < 16; i++) {
   } else {
      card.textContent = numbers[i];
   }
+  if(card.textContent === '') {
+    card.classList.add('empty')
+  }
  
   puzzle.append(card)
 }
@@ -179,6 +182,8 @@ function moveCard (event) {
       target.nextSibling.textContent = current;
       target.textContent = '';
       target.classList.remove('right') // убираем анимацию
+      target.classList.add('empty') // убрали границы с таргета
+      target.nextSibling.classList.remove('empty') // возвращаем границы следующему элементу
       ifWin() // проверяем на выигрыш
       puzzle.addEventListener('click', moveCard);
     }, 400)
@@ -193,6 +198,8 @@ function moveCard (event) {
       target.previousSibling.textContent = current;
       target.textContent = '';
       target.classList.remove('left');
+      target.classList.add('empty');
+      target.previousSibling.classList.remove('empty');
       ifWin();
       puzzle.addEventListener('click', moveCard);
     }, 400);
@@ -206,7 +213,9 @@ function moveCard (event) {
     setTimeout(() => {
       cards[i+4].textContent = current;
       target.textContent = '';
-      target.classList.remove('down')
+      target.classList.remove('down');
+      target.classList.add('empty');
+      cards[i+4].classList.remove('empty');
       ifWin();
       puzzle.addEventListener('click', moveCard);
     }, 400)
@@ -221,6 +230,8 @@ function moveCard (event) {
       cards[i-4].textContent = current;
       target.textContent = '';
       target.classList.remove('up');
+      target.classList.add('empty');
+      cards[i-4].classList.remove('empty')
       ifWin();
       puzzle.addEventListener('click', moveCard);
     }, 400);
@@ -373,7 +384,7 @@ for (let i = 0; i < 10 && i < arr.length; i++) {
    let winRow = document.createElement('p');
   winRow.classList.add('win-row');
   console.log(arr[i])
-  winRow.textContent = `${i+1}.  Time: ${arr[i].time}. Moves: ${arr[i].count}.`
+  winRow.textContent = `${i+1}.  Time ${arr[i].time} - Moves  ${arr[i].count}`
   winList.append(winRow)
 }
 }
@@ -393,5 +404,5 @@ localStorage.removeItem('numbers')
 localStorage.removeItem('now')
 }
 
-
+document.body.addEventListener('click', () => winner.remove())
 
