@@ -1,4 +1,3 @@
-
 const wrapper = document.createElement("div");
 wrapper.className = 'wrapper';
 document.body.append(wrapper);
@@ -13,7 +12,6 @@ wrapper.append(btnCont);
 
 const winner = document.createElement('div');
 winner.className = 'win-div'
-
 
 let soundBtn;  // для звука
 let sound = true  // для звука
@@ -39,7 +37,6 @@ for(let i = 0; i < 4; i++) {
     btn.classList.add('clear')
     break;
   }
-
   btnCont.append(btn);
 }
 
@@ -66,7 +63,6 @@ for(let i = 0; i < 4; i++) {
     div.textContent = '0:00';
     break;
   }
-
   countCont.append(div);
 }
 
@@ -115,12 +111,9 @@ control(numbers);
 
 // запоминаем игру
 const save = document.querySelector('.save');
-
 save.addEventListener('click', saveGame)
 
 // сохраняем в локалсторэдж
-
-
 function saveGame () {
   localStorage.setItem('moves', counter.textContent);
   localStorage.setItem('time', time.textContent);
@@ -129,10 +122,8 @@ function saveGame () {
   let savedCardArr = [];
   document.querySelectorAll('.card').forEach(el => savedCardArr.push(el.textContent))
   localStorage.setItem('numbers', savedCardArr.join())
-
   }
 // достаем из локалстрэдж
-
 document.addEventListener('DOMContentLoaded', () => {
   if(localStorage.moves) {
     counter.textContent = localStorage.getItem('moves');
@@ -140,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
     now = +localStorage.getItem('now');
     }
 })
-
 
 let savedNumbers = localStorage.getItem('numbers') || null
 savedNumbers ? savedNumbers = savedNumbers.split(',') : savedNumbers = null
@@ -156,24 +146,17 @@ for(let i = 0; i < 16; i++) {
   if(card.textContent === '') {
     card.classList.add('empty')
   }
- 
-  puzzle.append(card)
+   puzzle.append(card)
 }
 // вешаем слушатель на паззл
-
 puzzle.addEventListener('click', moveCard);
 
 const counter = document.querySelector('.counter');
-
-
-
 // передвигаем пустые ячейки и считаем движения
-
 function moveCard (event) {
   let target = event.target;
   let current = target.textContent;
   let cards = Array.from(document.querySelectorAll('.card'));
-   
   let i = cards.indexOf(target);
   
   if(target.nextSibling && target.nextSibling.textContent === '' && ((i+1) % 4 !== 0) ) {
@@ -273,7 +256,6 @@ function moveCard (event) {
 }
 
 //  делаем счетчик движений
-
 function countMoves () {
   let current = +counter.textContent;
   counter.textContent = ++current
@@ -281,7 +263,6 @@ function countMoves () {
 
 // делаем шаффл и рестарт 
 const shuffleBtn = document.querySelector('.shuffle')
-
 shuffleBtn.addEventListener('click', () => restart(numbers))
 
 function restart(array) {
@@ -289,8 +270,13 @@ function restart(array) {
  control (array);
   let cards = document.querySelectorAll('.card');
   for(let i = 0; i < 16; i++) {
-    cards[i].textContent = array[i]
+    cards[i].textContent = array[i];
+    cards[i].classList.remove('empty');
+    if(cards[i].textContent === '') {
+      cards[i].classList.add('empty')
+    }
   }
+ 
   counter.textContent = 0;
   // перезапускаем таймер
   start = 0;
@@ -324,12 +310,10 @@ let timer = setInterval(() => {
   
 }, 1000)
 
-
 // делаем звук
-
-const audio = new Audio('move.mp3')
+const audio = new Audio('move2.mp3')
+console.log(audio.duration)
 //  делаем кнопку для звука
-
 soundBtn.addEventListener('click', () => {
   if(sound) {
     soundBtn.textContent = 'Sound off'
@@ -340,17 +324,15 @@ soundBtn.addEventListener('click', () => {
   }
    sound = !sound
 })
-
 // top 10
-
 // функция для обновления топ-10
-
 function updateTop () {
- 
 const winList = document.createElement('div');
 winList.className = 'win-list';
-winList.textContent = 'Top 10'
-wrapper.append(winList)
+wrapper.append(winList);
+const winH = document.createElement('h4');
+winH.textContent = 'Top 10';
+winList.prepend(winH);
 
 // проверяем localStorage на наличие winKey и запихиваем объекты в массив
 let arr = []
@@ -383,21 +365,17 @@ arr.sort((a,b) => {
 for (let i = 0; i < 10 && i < arr.length; i++) {
    let winRow = document.createElement('p');
   winRow.classList.add('win-row');
-  console.log(arr[i])
-  winRow.textContent = `${i+1}.  Time ${arr[i].time} - Moves  ${arr[i].count}`
+  winRow.textContent = `${i+1}. Time ${arr[i].time} - Moves ${arr[i].count}`
   winList.append(winRow)
 }
 }
-
 updateTop()
-
   // убираем сохраненную игру из локалсторэдж
   
 let clear = document.querySelector('.clear');
 clear.addEventListener('click', removeSavings)
 
 function removeSavings() {
-  console.log('clearing///')
 localStorage.removeItem('time')
 localStorage.removeItem('moves')
 localStorage.removeItem('numbers')
@@ -405,4 +383,3 @@ localStorage.removeItem('now')
 }
 
 document.body.addEventListener('click', () => winner.remove())
-

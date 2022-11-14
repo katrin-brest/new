@@ -13,21 +13,19 @@ body {
   max-width: 600px;
   height: 100vh;
   margin: 0 auto;
-  padding-top: 30px;
- 
-}
+  padding-top: 20px;
+ }
 
 h1 {
   width: 100%;
   text-align: center;
   letter-spacing: 2px;
   font-size: 36px;
-
 }
 
 .btn-cont {
   max-width: 330px;
-  margin: 20px auto;
+  margin: 30px auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 30px);
@@ -70,7 +68,7 @@ h1 {
   width: 330px;
   height: 330px;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1f);
@@ -96,25 +94,21 @@ h1 {
 .right {
   transform: translateX(calc(100% + 10px));
   transition: transform 0.4s;
-  /* border: 2px solid black; */
-}
+ }
 
 .left {
   transform: translateX(calc(-100% - 10px));
   transition: transform 0.4s;
-  /* border: 2px solid black; */
-}
+ }
 
 .up {
   transform: translateY(calc(-100% - 10px));
   transition: transform 0.4s;
-  /* border: 2px solid black; */
-}
+ }
 .down {
   transform: translateY(calc(100% + 10px));
   transition: transform 0.4s;
-  /* border: 2px solid black; */
-}
+  }
 
 .empty {
   border: none;
@@ -136,6 +130,7 @@ h1 {
 
 .win-list {
   max-width: 330px;
+  height: 340px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -143,13 +138,23 @@ h1 {
   text-align: center;
   font: 400 16px 'Kaushan Script', cursive;
   color: brown;
+  background-image: url(list1.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+h4 {
+  padding-top: 4px;
+  margin-bottom: 10px;
 }
 
 .win-row {
   width: 200px;
-  margin: 7px 0;
+  margin: 5.5px 0;
   text-align: left;
   font: 400 14px 'Arial', sans-serif;
   letter-spacing: 1px;
   color: black;
+  padding-left: 7px;
  }
